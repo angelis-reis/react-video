@@ -40,9 +40,6 @@ const WbnPlayer = ({ match, history, location }) => {
     })
 
     
-    console.log('Koca: state.activeVideo ', state.activeVideo);
-
-    
 
     useEffect( () => {
         localStorage.setItem(`${state.playlistId}`, JSON.stringify(
