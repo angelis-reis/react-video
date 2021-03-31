@@ -4,16 +4,27 @@ import PlaylistItems from '../containers/PlaylistItems'
 import NightMode from '../NightMode'
 import StyledPlaylist from '../styles/StyledPlaylist'
 
-const Playlist = ({ videos, active, nightModeCallback, nightMode }) => (
+const Playlist = ({ videos, active, nightModeCallback, nightMode }) => {
+    
+    
+    return (
 
-    <StyledPlaylist >  {/* ao envolver os componentes em um styledComponent eu aplico o stilo   nos componenetes */}
+        <StyledPlaylist >  {/* ao envolver os componentes em um styledComponent eu aplico o stilo   nos componenetes */}
 
-        <NightMode nightModeCallback={nightModeCallback} nightMode={nightMode} />
-        <PlaylistHeader active={active} total={videos.length}/>
-        <PlaylistItems video={videos} active={active} />
+            <NightMode nightModeCallback={nightModeCallback} nightMode={nightMode} />
+            <PlaylistHeader active={active} total={videos.length}/>
+            <PlaylistItems videos={videos} active={active} />
 
-    </ StyledPlaylist >
-)
+        </ StyledPlaylist >
+    
+    )
+
+
+
+}
+
+
+   
 
 
 export default Playlist
