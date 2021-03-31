@@ -26,8 +26,6 @@ const themeLight = {
 }
 
 
-
-
 const WbnPlayer = ({ match, history, location }) => {
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
@@ -42,7 +40,6 @@ const WbnPlayer = ({ match, history, location }) => {
     })
 
     
-    
 
     useEffect( () => {
         localStorage.setItem(`${state.playlistId}`, JSON.stringify(
@@ -51,7 +48,6 @@ const WbnPlayer = ({ match, history, location }) => {
             }
         ))
     }, [state] )
-
 
     useEffect( () =>{
         const videoId = match.params.activeVideo
@@ -74,8 +70,6 @@ const WbnPlayer = ({ match, history, location }) => {
             })
         }
     }, [history, location.autoplay, match.params.activeVideo, state.activeVideo.id, state.videos] )
-
-
 
     const endCallback = () => {
 
