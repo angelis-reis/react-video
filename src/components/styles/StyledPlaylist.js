@@ -8,7 +8,7 @@ const StyledPlaylist = styled.div `
     overflow: hidden;
     color: white;
 
-    @media screen and (max-width:1440px) {
+    @media screen and (max-width:1240px) {
         width: 100%;
         display: block;
     }

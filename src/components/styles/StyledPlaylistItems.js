@@ -8,7 +8,7 @@ const StyledPlaylistItems = styled.div `
     max-height: 500px;
 
 
-    ::::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         width: 5px;
     }
 

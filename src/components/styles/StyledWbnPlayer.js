@@ -5,7 +5,7 @@ const StyledWbnPlayer = styled.div `
     background: ${ props => props.theme.bgcolor };
     border: ${ props => props.theme.border };
     max-width: 1800px;
-    margin: 0 auto;
+    margin: 30px auto;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -13,7 +13,7 @@ const StyledWbnPlayer = styled.div `
     max-height: 863px;
     transition: all 0.5s ease;
 
-    @media screen and (max-width: 1400px) {
+    @media screen and (max-width: 1200px) {
         display: block;
         max-height: 10000px;
     }

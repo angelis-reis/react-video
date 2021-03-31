@@ -14,6 +14,7 @@ const StyledNightMode = styled.div`
     display: inline-block;
     width: 40px;
     height: 24px;
+    margin-left: 10px;
   }
   /* Hide default HTML checkbox */
   .switch input {
