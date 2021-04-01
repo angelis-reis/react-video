@@ -1,0 +1,46 @@
+ 
+(13) […]
+​
+0: {…}
+​​
+contentDetails: {…}
+​​​
+videoId: "6DJx7kAGKZg"
+​​​
+videoPublishedAt: "2013-02-01T10:15:36Z"
+​​​
+<prototype>: Object { … }
+​​
+etag: "yLMbBFdY1r1vf2CjqnkK0gyrMzI"
+​​
+id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi41NkI0NEY2RDEwNTU3Q0M2"
+​​
+kind: "youtube#playlistItem"
+​​
+<prototype>: Object { … }
+​
+1: Object { kind: "youtube#playlistItem", etag: "4Jtp92EZ9tWPW-SpOHAybNVksDE", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi4yODlGNEE0NkRGMEEzMEQy", … }
+​
+2: Object { kind: "youtube#playlistItem", etag: "sKRNPTKKqjUPoMe9Ik9JvRnsyDc", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi4wOTA3OTZBNzVEMTUzOTMy", … }
+​
+3: Object { kind: "youtube#playlistItem", etag: "7HdsamGeM_rOKHQaE0oGmKOkG-I", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi4xMkVGQjNCMUM1N0RFNEUx", … }
+​
+4: Object { kind: "youtube#playlistItem", etag: "rVZngaZq3__9bJs1Tw8mOQrHq6c", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi41MzJCQjBCNDIyRkJDN0VD", … }
+​
+5: Object { kind: "youtube#playlistItem", etag: "Rjj_UU1ilTGJ5-EpMF9ny9djBgo", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi5DQUNERDQ2NkIzRUQxNTY1", … }
+​
+6: Object { kind: "youtube#playlistItem", etag: "vgJTGvhhP_5XfDv71953UXFMhqw", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi45NDk1REZENzhEMzU5MDQz", … }
+​
+7: Object { kind: "youtube#playlistItem", etag: "2c9dzVSEiuPuFo9rOtD0ZEJCMYM", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi5GNjNDRDREMDQxOThCMDQ2", … }
+​
+8: Object { kind: "youtube#playlistItem", etag: "fW5BVYpkfPdpyVExM4ulLeHPyEg", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi40NzZCMERDMjVEN0RFRThB", … }
+​
+9: Object { kind: "youtube#playlistItem", etag: "_3njE5WW0NEOLoACQp-Q_zSltCI", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi5EMEEwRUY5M0RDRTU3NDJC", … }
+​
+10: Object { kind: "youtube#playlistItem", etag: "H_abtND8ob11PA-RlbVfPWWBWOc", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi45ODRDNTg0QjA4NkFBNkQy", … }
+​
+11: Object { kind: "youtube#playlistItem", etag: "kbNnLh92MvglcyksVcaISkWYhdI", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi4zMDg5MkQ5MEVDMEM1NTg2", … }
+​
+12: Object { kind: "youtube#playlistItem", etag: "CXVz4kEvL_7wAqz-HEoTU_e9JB0", id: "UExBTW9pNUJvc21wMEpqRW1tUmViT041QWkxTWdTMXF5Zi41Mzk2QTAxMTkzNDk4MDhF", … }
+​
+length: 13
