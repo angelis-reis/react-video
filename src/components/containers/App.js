@@ -59,19 +59,26 @@ const App = () => {
 	useEffect( () => {   /* buscando informações de cada vídeo da lista */	
 		/* console.log("youtubePlaylist: ", youtubePlaylist) */
 
-		videoIdList.map((vidInfo) =>{
+		var videoInfoList =[]
 
+		videoIdList.map((vidInfo) =>{
 			
 			async function fetchVideosInfo(){
 				try{
 					const requestVideoInfos =  await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20contentDetails%2C%20player&id=${vidInfo}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
 					/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
 					console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items);
+					
+					videoInfoList.push(requestVideoInfos.data.items)
+
 				} catch(err) {
 					console.log("Erro: ", err.response?.data?.error) 
 				}
 			}
 			fetchVideosInfo()
+
+			setVideosInformations(videoInfoList)
+
 		})
 	}, [videoIdList])
 
