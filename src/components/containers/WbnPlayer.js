@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { ThemeProvider } from "styled-components"
 import Video from '../Video'
 import Playlist from '../containers/Playlist'
 import StyledWbnPlayer from '../styles/StyledWbnPlayer'
+import { VideosContext } from './App'
 
 const theme = {
     bgcolor: "#353535",
@@ -24,7 +25,22 @@ const themeLight = {
     color: "#353535"
 }
 
-const WbnPlayer = ({ match, history, location }) => {
+/* 0: {…}
+​​
+    duration: "10:51"
+    ​​
+    id: "ghI-gMi1DPc"
+    ​​
+    num: 1
+    ​​
+    played: true
+    ​​
+    title: "Introduction and setup"
+    ​​
+    video: "https://www.youtube.com/embed/Cn1wH2bK3e8" */
+
+const WbnPlayer = ({ match, history, location }) => {   
+
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
     const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`))
@@ -36,6 +52,23 @@ const WbnPlayer = ({ match, history, location }) => {
         playlistId: savedState ? savedState.playlistId :  videos.playlistId,
         autoplay: false,
     })
+
+    /* console.log('Koca:state.videos ', state.videos ); */
+
+
+    
+    /* const { videosInformations } = useContext(VideosContext)
+    
+    
+    const [state, setState] = useState({
+        videos: savedState ? savedState.videos : videosInformations,
+        activeVideo: savedState ? savedState.activeVideo :  videosInformations[0],
+        nightMode: savedState ? savedState.nightMode :  true,
+        playlistId: savedState ? savedState.playlistId :  videos.playlistId,
+        autoplay: false,
+    }) */
+
+
 
     useEffect( () => {
         localStorage.setItem(`${state.playlistId}`, JSON.stringify(
@@ -127,6 +160,13 @@ const WbnPlayer = ({ match, history, location }) => {
 
     }
 
+    console.log('Koca: videos ', state.videos);
+
+    setTimeout(() => {
+        console.log('Koca: setTimeout ', setTimeout);
+
+        localStorage.clear();
+    }, 20000)
 
     return (
         <ThemeProvider theme= {state.nightMode ? theme : themeLight}>
@@ -147,8 +187,7 @@ const WbnPlayer = ({ match, history, location }) => {
                     />
                 </StyledWbnPlayer>
             ) : null}
-        </ThemeProvider>
-        
+        </ThemeProvider>        
     )
 }
 

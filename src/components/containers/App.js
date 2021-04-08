@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import axios from "axios";
 import WbnPlayer from './WbnPlayer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
@@ -7,27 +7,24 @@ import GlobalStyle from '../styles/GlobalStyle'
 const playlistId = "PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz"
 
 function youtubeUrlMaker(videoId) {
-
-
 	const embed = "https://www.youtube.com/embed/"
-
 	const id = "QH2-TGUlwu4"
-
 	const youtubeUrl = embed.concat(videoId)
-
-
 }
+
+export const VideosContext = createContext()
 
 const App = () => {
 
 	const [youtubePlaylist, setYoutubePlaylist] = useState([])
 	const [videoIdList, setVideoIdList] = useState([])
+
 	const [videosInformations, setVideosInformations] = useState([])
+
+	
 	
 
-	useEffect(() => {  /* buscando a playlist de vídeos */	
-		
-		
+	useEffect(() => {  /* buscando a playlist de vídeos */		
 		
 		async function fetchPlaylist(){
 			try{
@@ -66,9 +63,9 @@ const App = () => {
 				try{
 					const requestVideoInfos =  await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20contentDetails%2C%20player&id=${vidInfo}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
 					/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
-					/* console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items); */
+					/* console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items[0]); */
 					
-					videoInfoList.push(requestVideoInfos.data.items)
+					videoInfoList.push(requestVideoInfos.data.items[0])
 
 				} catch(err) {
 					console.log("Erro: ", err.response?.data?.error) 
@@ -81,19 +78,28 @@ const App = () => {
 		})
 	}, [videoIdList])
 
-	console.log('Koca: videosInformations ', videosInformations);
+	/* console.log('Koca: videosInformations ', videosInformations); */
 	
 	return (
-		<BrowserRouter basename="/react-videoplayer">   {/* usar o basename se o player for 
-		ficar em uma subpasta na  minha aplicação    */}
-			<>
-			  <Switch>
-				<Route exact path= "/" component={ WbnPlayer } />
-				<Route exact path= "/:activeVideo" component={ WbnPlayer } />
-			  </Switch> 
-			  <GlobalStyle /> {/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
-			</>
-		</BrowserRouter>
+
+		<VideosContext.Provider value ={ {
+			videosInformations,
+			setVideosInformations
+			}} 
+		>
+
+			<BrowserRouter basename="/react-videoplayer">   {/* usar o basename se o player for 
+			ficar em uma subpasta na  minha aplicação    */}
+				<>
+				<Switch>
+					<Route exact path= "/" component={ WbnPlayer } />
+					<Route exact path= "/:activeVideo" component={ WbnPlayer } />
+				</Switch> 
+				<GlobalStyle /> {/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
+				</>
+			</BrowserRouter>
+
+		</VideosContext.Provider>
 	)
 }
 export default App;
