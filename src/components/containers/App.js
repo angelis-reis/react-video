@@ -6,7 +6,6 @@ import GlobalStyle from '../styles/GlobalStyle'
 
 const playlistId = "PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz"
 
-
 function youtubeUrlMaker(videoId) {
 
 
@@ -21,15 +20,15 @@ function youtubeUrlMaker(videoId) {
 
 const App = () => {
 
-	
-
 	const [youtubePlaylist, setYoutubePlaylist] = useState([])
 	const [videoIdList, setVideoIdList] = useState([])
 	const [videosInformations, setVideosInformations] = useState([])
-
 	
 
-	useEffect(() => {  /* buscando a playlist de vídeos */		
+	useEffect(() => {  /* buscando a playlist de vídeos */	
+		
+		
+		
 		async function fetchPlaylist(){
 			try{
 				const requestPlayList =  await axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistId}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
@@ -53,7 +52,7 @@ const App = () => {
 		setVideoIdList(videoList)
 
 	}, [youtubePlaylist])
-	console.log('Koca:videoIdList ', videoIdList);
+	/* console.log('Koca:videoIdList ', videoIdList); */
 
 
 	useEffect( () => {   /* buscando informações de cada vídeo da lista */	
@@ -67,7 +66,7 @@ const App = () => {
 				try{
 					const requestVideoInfos =  await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20contentDetails%2C%20player&id=${vidInfo}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
 					/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
-					console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items);
+					/* console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items); */
 					
 					videoInfoList.push(requestVideoInfos.data.items)
 
@@ -76,18 +75,15 @@ const App = () => {
 				}
 			}
 			fetchVideosInfo()
-
 			setVideosInformations(videoInfoList)
+			
 
 		})
 	}, [videoIdList])
 
-	
-	
-	
+	console.log('Koca: videosInformations ', videosInformations);
 	
 	return (
-
 		<BrowserRouter basename="/react-videoplayer">   {/* usar o basename se o player for 
 		ficar em uma subpasta na  minha aplicação    */}
 			<>
@@ -97,8 +93,7 @@ const App = () => {
 			  </Switch> 
 			  <GlobalStyle /> {/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
 			</>
-		  </BrowserRouter>
+		</BrowserRouter>
 	)
 }
-
 export default App;

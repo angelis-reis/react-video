@@ -4,7 +4,6 @@ import Video from '../Video'
 import Playlist from '../containers/Playlist'
 import StyledWbnPlayer from '../styles/StyledWbnPlayer'
 
-
 const theme = {
     bgcolor: "#353535",
     bgColorItem: "#414141",
@@ -25,7 +24,6 @@ const themeLight = {
     color: "#353535"
 }
 
-
 const WbnPlayer = ({ match, history, location }) => {
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
@@ -38,8 +36,6 @@ const WbnPlayer = ({ match, history, location }) => {
         playlistId: savedState ? savedState.playlistId :  videos.playlistId,
         autoplay: false,
     })
-
-    
 
     useEffect( () => {
         localStorage.setItem(`${state.playlistId}`, JSON.stringify(
