@@ -39,13 +39,7 @@ const themeLight = {
     ​​
     video: "https://www.youtube.com/embed/Cn1wH2bK3e8" */
 
-const WbnPlayer = ({ match, history, location }) => {
-
-
-    const { videosInformations } = useContext(VideosContext)
-    
-
-    
+const WbnPlayer = ({ match, history, location }) => {   
 
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
@@ -60,20 +54,21 @@ const WbnPlayer = ({ match, history, location }) => {
     })
 
     /* console.log('Koca:state.videos ', state.videos ); */
+
+
     
-
-
-     const videos2 = videosInformations
-     const video2_0 = videos2[0] 
-     console.log('Koca: videos2 ', videos2[0].id);
-    /*
+    /* const { videosInformations } = useContext(VideosContext)
+    
+    
     const [state, setState] = useState({
-        videos: savedState ? savedState.videos : videos.playlist,
-        activeVideo: savedState ? savedState.activeVideo :  videos.playlist[0],
+        videos: savedState ? savedState.videos : videosInformations,
+        activeVideo: savedState ? savedState.activeVideo :  videosInformations[0],
         nightMode: savedState ? savedState.nightMode :  true,
         playlistId: savedState ? savedState.playlistId :  videos.playlistId,
         autoplay: false,
     }) */
+
+
 
     useEffect( () => {
         localStorage.setItem(`${state.playlistId}`, JSON.stringify(
@@ -165,18 +160,7 @@ const WbnPlayer = ({ match, history, location }) => {
 
     }
 
-    /* setTimeout(() => {
-
-        videos2.map( (video, index) => {
-            video.map( (video3, index) => {
-                console.log('Koca: video3.id ', video3.id);
-            })
-
-        })
-    }, 900); */
-
-    
-
+    console.log('Koca: videos ', state.videos);
 
     return (
         <ThemeProvider theme= {state.nightMode ? theme : themeLight}>
@@ -197,8 +181,7 @@ const WbnPlayer = ({ match, history, location }) => {
                     />
                 </StyledWbnPlayer>
             ) : null}
-        </ThemeProvider>
-        
+        </ThemeProvider>        
     )
 }
 
