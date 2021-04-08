@@ -46,6 +46,18 @@ const WbnPlayer = ({ match, history, location }) => {
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
     const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`))
 
+    const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext)
+	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(VideosContext)	
+	const { videoIdList, setVideoIdList } = useContext(VideosContext)
+	const { videosInformations, setVideosInformations } = useContext(VideosContext)
+	const { videosFinalList, setVideosFinalList } = useContext(VideosContext)
+
+
+
+
+
+
+
     const [state, setState] = useState({
         videos: savedState ? savedState.videos : videos.playlist,
         activeVideo: savedState ? savedState.activeVideo :  videos.playlist[0],
@@ -163,11 +175,12 @@ const WbnPlayer = ({ match, history, location }) => {
 
     /* console.log('Koca: videos ', state.videos); */
 
-    setTimeout(() => {
-        /* console.log('Koca: setTimeout ', setTimeout); */
+    /* setTimeout(() => {
+        
 
         localStorage.clear();
-    }, 20000)
+    }, 20000) 
+    */
 
     return (
         <ThemeProvider theme= {state.nightMode ? theme : themeLight}>
