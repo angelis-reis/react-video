@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { ThemeProvider } from "styled-components"
 import Video from '../Video'
 import Playlist from '../containers/Playlist'
+import VideoList from './VideoList'
 import StyledWbnPlayer from '../styles/StyledWbnPlayer'
 import { VideosContext } from './App'
 
@@ -160,10 +161,10 @@ const WbnPlayer = ({ match, history, location }) => {
 
     }
 
-    console.log('Koca: videos ', state.videos);
+    /* console.log('Koca: videos ', state.videos); */
 
     setTimeout(() => {
-        console.log('Koca: setTimeout ', setTimeout);
+        /* console.log('Koca: setTimeout ', setTimeout); */
 
         localStorage.clear();
     }, 20000)
@@ -185,6 +186,7 @@ const WbnPlayer = ({ match, history, location }) => {
                         nightModeCallback={nightModeCallback}
                         nightMode={state.nightMode}
                     />
+                    <VideoList />
                 </StyledWbnPlayer>
             ) : null}
         </ThemeProvider>        
