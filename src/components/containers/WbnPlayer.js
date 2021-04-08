@@ -162,6 +162,12 @@ const WbnPlayer = ({ match, history, location }) => {
 
     console.log('Koca: videos ', state.videos);
 
+    setTimeout(() => {
+        console.log('Koca: setTimeout ', setTimeout);
+
+        localStorage.clear();
+    }, 20000)
+
     return (
         <ThemeProvider theme= {state.nightMode ? theme : themeLight}>
             {state.videos !== null ? (
