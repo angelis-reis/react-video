@@ -1,22 +1,27 @@
 import React, { useEffect, useState, createContext } from 'react'
 import axios from "axios";
-import WbnPlayer from './WbnPlayer'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import GlobalStyle from '../styles/GlobalStyle'
+
 
 const playlistId = "PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz"
 
 
+function youtubeUrlMaker(videoId) {
+	const embed = "https://www.youtube.com/embed/"
+	
+	const youtubeUrl = embed.concat(videoId)
 
-export const VideosContext = createContext()
+	return youtubeUrl
+}
 
-const App = () => {
+const VideoList = () => {
 
 	const [youtubePlaylist, setYoutubePlaylist] = useState([])
 	const [videoIdList, setVideoIdList] = useState([])
 
 	const [videosInformations, setVideosInformations] = useState([])
 
+	const [videosFinalList, setVideosFinalList] = useState([])
+    
 	
 	
 
@@ -74,30 +79,48 @@ const App = () => {
 		})
 	}, [videoIdList])
 
+	useEffect( () => {
+
+		setTimeout( () => {
+
+			const videosFinalList = []
+			
+			videosInformations.map( (vid, index) => {
+
+				const url = youtubeUrlMaker(vid.id)
+
+
+
+				const video = `&quot;num&quot;:${ index },&quot;title&quot;:&quot;${ vid.snippet.localized.title }&quot;,&quot;id&quot;:&quot;${ vid.id }&quot;,&quot;duration&quot;:&quot;{ vid.contentDetails.duration }&quot;,&quot;video&quot;:&quot;${ url };`
+
+				/* console.log('Koca: video ', video); */
+
+				videosFinalList.push(video);
+
+				setVideosFinalList(videosFinalList)
+				
+			})
+		}, 500);
+
+
+	}, [videosInformations])
+
+	console.log('Koca: videosFinalList ', videosFinalList);
+
+
 	
 
-	/* console.log('Koca: videosInformations ', videosInformations); */
+    
 	
-	return (
+	
 
-		<VideosContext.Provider value ={ {
-			videosInformations,
-			setVideosInformations
-			}} 
-		>
-
-			<BrowserRouter basename="/react-videoplayer">   {/* usar o basename se o player for 
-			ficar em uma subpasta na  minha aplicação    */}
-				<>
-				<Switch>
-					<Route exact path= "/" component={ WbnPlayer } />
-					<Route exact path= "/:activeVideo" component={ WbnPlayer } />
-				</Switch> 
-				<GlobalStyle /> {/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
-				</>
-			</BrowserRouter>
-
-		</VideosContext.Provider>
+	
+	
+	return(
+		null
 	)
+
 }
-export default App;
+
+export default VideoList
+
