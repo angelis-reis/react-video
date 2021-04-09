@@ -2,7 +2,19 @@ import React, { useEffect, useState, createContext } from 'react'
 import axios from "axios";
 import WbnPlayer from './WbnPlayer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import GlobalStyle from '../styles/GlobalStyle'
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body { 
+        font-size: 10px;
+        font-family: 'Hind', sans-serif;
+    }
+`
 
 const playlistId = "PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz"
 
@@ -17,10 +29,6 @@ const App = () => {
 	const [videosInformations, setVideosInformations] = useState([])
 	const [youtubePlaylistTitle, setYoutubePlaylistTitle] = useState([])
 	const [videosFinalList, setVideosFinalList] = useState([])
-	
-	
-
-
 
 	
 

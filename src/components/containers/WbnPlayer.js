@@ -3,8 +3,27 @@ import { ThemeProvider } from "styled-components"
 import Video from '../Video'
 import Playlist from '../containers/Playlist'
 import VideoList from './VideoList'
-import StyledWbnPlayer from '../styles/StyledWbnPlayer'
 import { VideosContext } from './App'
+import styled from "styled-components"
+
+const StyledWbnPlayer = styled.div `
+
+    background: ${ props => props.theme.bgcolor };
+    border: ${ props => props.theme.border };
+    max-width: 1800px;
+    margin: 30px auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    max-height: 863px;
+    transition: all 0.5s ease;
+
+    @media screen and (max-width: 1200px) {
+        display: block;
+        max-height: 10000px;
+    }
+`
 
 const theme = {
     bgcolor: "#353535",

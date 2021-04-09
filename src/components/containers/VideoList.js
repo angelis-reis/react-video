@@ -16,10 +16,6 @@ function youtubeUrlMaker(videoId) {
 
 const VideoList = () => {
 
-	console.log('Koca: ApiKey ', ApiKey);
-
-
-
 	const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext)
 	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(VideosContext)	
 	const { videoIdList, setVideoIdList } = useContext(VideosContext)
