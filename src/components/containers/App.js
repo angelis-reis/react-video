@@ -1,5 +1,4 @@
-import React, { useEffect, useState, createContext } from 'react'
-import axios from "axios";
+import React, { useState, createContext } from 'react'
 import WbnPlayer from './WbnPlayer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
