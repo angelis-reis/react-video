@@ -62,9 +62,7 @@ const WbnPlayer = ({ match, history, location }) => {
 	const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
 
 	const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext);
-	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(
-		VideosContext
-	);
+	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(VideosContext);
 	const { videoIdList, setVideoIdList } = useContext(VideosContext);
 	const { videosInformations, setVideosInformations } = useContext(
 		VideosContext
@@ -204,6 +202,7 @@ const WbnPlayer = ({ match, history, location }) => {
 						progressCallback={progressCallback}
 					/>
 					<Playlist
+
 						videos={state.videos}
 						active={state.activeVideo}
 						nightModeCallback={nightModeCallback}
