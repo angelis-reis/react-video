@@ -1,5 +1,3 @@
+const ApiKey = 'AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q';
 
-
-const ApiKey = "AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q"
-
-export default ApiKey 
+export default ApiKey;

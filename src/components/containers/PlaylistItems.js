@@ -1,37 +1,35 @@
-import React from 'react'
-import PlaylistItem from '../PlaylistItem'
-import withLink from '../hoc/withLink'
-import styled from 'styled-components'
+import React from 'react';
+import PlaylistItem from '../PlaylistItem';
+import withLink from '../hoc/withLink';
+import styled from 'styled-components';
 
-const StyledPlaylistItems = styled.div `
+const StyledPlaylistItems = styled.div`
+	padding: 0 20px;
+	overflow-y: auto;
+	height: 28vw;
+	max-height: 500px;
 
-    padding: 0 20px;
-    overflow-y: auto;
-    height: 28vw;
-    max-height: 500px;
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+	::webkit-scrollbar-track {
+		background: transparent;
+	}
+	::webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 2px;
+	}
+	::webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+`;
 
-    ::-webkit-scrollbar {
-        width: 5px;
-    }
-    ::webkit-scrollbar-track {
-        background: transparent;
-    }
-    ::webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 2px;
-    }
-    ::webkit-scrollbar-thumb:hover {
-        background: #555;
-    }    
-`
-
-const PlaylistItemWithLink = withLink(PlaylistItem)
+const PlaylistItemWithLink = withLink(PlaylistItem);
 
 const PlaylistItems = ({ videos, active }) => {
-
 	return (
 		<StyledPlaylistItems>
-			{videos.map(video => (
+			{videos.map((video) => (
 				<PlaylistItemWithLink
 					key={video.id}
 					video={video}
@@ -40,7 +38,7 @@ const PlaylistItems = ({ videos, active }) => {
 				/>
 			))}
 		</StyledPlaylistItems>
-	)
-}
+	);
+};
 
-export default PlaylistItems
+export default PlaylistItems;
