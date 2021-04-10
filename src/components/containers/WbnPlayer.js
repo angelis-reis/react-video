@@ -58,11 +58,13 @@ const themeLight = {
     video: "https://www.youtube.com/embed/Cn1wH2bK3e8" */
 
 const WbnPlayer = ({ match, history, location }) => {
+
 	const videos = JSON.parse(document.querySelector('[name="videos"]').value);
 	const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
 
+
+
 	const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext);
-	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(VideosContext);
 	const { videoIdList, setVideoIdList } = useContext(VideosContext);
 	const { videosInformations, setVideosInformations } = useContext(
 		VideosContext
@@ -77,7 +79,7 @@ const WbnPlayer = ({ match, history, location }) => {
 		autoplay: false
 	});
 
-	/* console.log('Koca:state.videos ', state.videos ); */
+	// console.log('Koca:videos.playlist ', videos.playlist);
 
 	/* const { videosInformations } = useContext(VideosContext)
 
@@ -190,6 +192,9 @@ const WbnPlayer = ({ match, history, location }) => {
         localStorage.clear();
     }, 20000)
     */
+
+	// console.log('Koca: videosFinalList ', videosFinalList);
+
 
 	return (
 		<ThemeProvider theme={state.nightMode ? theme : themeLight}>
