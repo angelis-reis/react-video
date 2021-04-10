@@ -1,31 +1,30 @@
-
 {
 	"parser": "babel-eslint",
 	"env": {
-	  "browser": true,
-	  "node": true,
-	  "jest": true
+		"browser": true,
+		"node": true,
+		"jest": true
 	},
-	"plugins": ["react", "jsx-a11y", "import"],
-	"extends": [ "airbnb", "prettier"],
+	"plugins": ["react", "jsx-a11y", "import", "only-warn"],
+	"extends": ["airbnb", "prettier", "eslint:recommended"],
 	"rules": {
+		"no-use-before-define": "off",
 		"react/prop-types": ["warn"],
 		"prefer-promise-reject-errors": ["off"],
 		"no-return-assign": ["off"],
 		"indent": [1, "tab"],
 
 		"no-tabs": 0,
-		"allowIndentationTabs": true,
+		"allowIndentationTabs": 0,
 
-
-	  "react/jsx-filename-extension": [
-		"error",
-		{
-		  "extensions": [".js", ".jsx"]
-		}
-	  ],
-	  "global-require": "off",
-	  "import/prefer-default-export": "off",
-	  "no-unused-expressions": ["error", { "allowTaggedTemplates": true }]
+		"react/jsx-filename-extension": [
+			"error",
+			{
+				"extensions": [".js", ".jsx"]
+			}
+		],
+		"global-require": "off",
+		"import/prefer-default-export": "off",
+		"no-unused-expressions": ["error", { "allowTaggedTemplates": true }]
 	}
 }

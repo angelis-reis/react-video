@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { VideosContext } from './App';
 import ApiKey from '../../sensitive/ApiKey';
@@ -59,8 +59,8 @@ const VideoList = () => {
 	useEffect(() => {
 		/* criando um array com os videosId da playlist de vídeos */
 		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-		var video;
-		var videoList = [];
+		let video;
+		const videoList = [];
 		youtubePlaylist.map((vid) => {
 			video = vid.contentDetails.videoId;
 			videoList.push(video);
@@ -73,7 +73,7 @@ const VideoList = () => {
 		/* buscando informações de cada vídeo da lista */
 		/* console.log("youtubePlaylist: ", youtubePlaylist) */
 
-		var videoInfoList = [];
+		const videoInfoList = [];
 
 		videoIdList.map((vidInfo) => {
 			async function fetchVideosInfo() {

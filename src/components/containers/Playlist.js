@@ -1,8 +1,8 @@
 import React from 'react';
-import PlaylistHeader from '../PlaylistHeader';
-import PlaylistItems from '../containers/PlaylistItems';
-import NightMode from '../NightMode';
 import styled from 'styled-components';
+import PlaylistHeader from '../PlaylistHeader';
+import PlaylistItems from './PlaylistItems';
+import NightMode from '../NightMode';
 
 const StyledPlaylist = styled.div`
 	-webkit-box-flex: 1;
