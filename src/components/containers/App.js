@@ -1,103 +1,67 @@
-import React, { useEffect, useState, createContext } from 'react'
-import axios from "axios";
-import WbnPlayer from './WbnPlayer'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import GlobalStyle from '../styles/GlobalStyle'
+import React, { useState, createContext } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import WbnPlayer from './WbnPlayer';
 
-const playlistId = "PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz"
+const GlobalStyle = createGlobalStyle`
 
+    * {
+        box-sizing: border-box;
 
+    }
 
-export const VideosContext = createContext()
+    body {
+        font-size: 10px;
+        font-family: 'Hind', sans-serif;
+    }
+`;
+
+const playlistId = 'PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz';
+
+export const VideosContext = createContext();
 
 const App = () => {
-
-	const [youtubePlaylist, setYoutubePlaylist] = useState([])
-	const [videoIdList, setVideoIdList] = useState([])
-
-	const [videosInformations, setVideosInformations] = useState([])
-
-	
-	
-
-	useEffect(() => {  /* buscando a playlist de vídeos */		
-		
-		async function fetchPlaylist(){
-			try{
-				const requestPlayList =  await axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistId}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
-				/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
-				setYoutubePlaylist(requestPlayList.data.items)				
-			} catch(err) {
-				console.log("Erro: ", err.response?.data?.error) 
-			}
-		}
-		fetchPlaylist()
-	}, [])
-
-	useEffect( () => {   /* criando um array com os videosId da playlist de vídeos */	
-		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-		var video
-		var videoList =[]
-		youtubePlaylist.map((vid) =>{
-			video =  vid.contentDetails.videoId
-			videoList.push(video)
-		})
-		setVideoIdList(videoList)
-
-	}, [youtubePlaylist])
-	/* console.log('Koca:videoIdList ', videoIdList); */
-
-
-	useEffect( () => {   /* buscando informações de cada vídeo da lista */	
-		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-
-		var videoInfoList =[]
-
-		videoIdList.map((vidInfo) =>{
-			
-			async function fetchVideosInfo(){
-				try{
-					const requestVideoInfos =  await axios.get(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20contentDetails%2C%20player&id=${vidInfo}&key=AIzaSyCU6mKJFznpRYM-Qn5JIbNkjVqqPlflx4Q`)
-					/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
-					/* console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items[0]); */
-					
-					videoInfoList.push(requestVideoInfos.data.items[0])
-
-				} catch(err) {
-					console.log("Erro: ", err.response?.data?.error) 
-				}
-			}
-			fetchVideosInfo()
-			setVideosInformations(videoInfoList)
-			
-
-		})
-	}, [videoIdList])
-
-	
+	const [youtubePlaylist, setYoutubePlaylist] = useState([]);
+	const [videoIdList, setVideoIdList] = useState([]);
+	const [videosInformations, setVideosInformations] = useState([]);
+	const [youtubePlaylistTitle, setYoutubePlaylistTitle] = useState([]);
+	const [videosFinalList, setVideosFinalList] = useState([]);
 
 	/* console.log('Koca: videosInformations ', videosInformations); */
-	
+
 	return (
-
-		<VideosContext.Provider value ={ {
-			videosInformations,
-			setVideosInformations
-			}} 
+		<VideosContext.Provider
+			value={{
+				youtubePlaylist,
+				setYoutubePlaylist,
+				videosInformations,
+				videoIdList,
+				setVideoIdList,
+				setVideosInformations,
+				youtubePlaylistTitle,
+				setYoutubePlaylistTitle,
+				videosFinalList,
+				setVideosFinalList
+			}}
 		>
-
-			<BrowserRouter basename="/react-videoplayer">   {/* usar o basename se o player for 
+			<BrowserRouter basename='/react-videoplayer'>
+				{' '}
+				{/* usar o basename se o player for
 			ficar em uma subpasta na  minha aplicação    */}
 				<>
-				<Switch>
-					<Route exact path= "/" component={ WbnPlayer } />
-					<Route exact path= "/:activeVideo" component={ WbnPlayer } />
-				</Switch> 
-				<GlobalStyle /> {/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
+					<Switch>
+						<Route exact path='/' component={WbnPlayer} />
+						<Route
+							exact
+							path='/:activeVideo'
+							component={WbnPlayer}
+						/>
+					</Switch>
+					<GlobalStyle />{' '}
+					{/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
 				</>
 			</BrowserRouter>
-
 		</VideosContext.Provider>
-	)
-}
+	);
+};
 export default App;

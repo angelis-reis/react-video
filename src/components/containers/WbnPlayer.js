@@ -3,8 +3,27 @@ import { ThemeProvider } from "styled-components"
 import Video from '../Video'
 import Playlist from '../containers/Playlist'
 import VideoList from './VideoList'
-import StyledWbnPlayer from '../styles/StyledWbnPlayer'
 import { VideosContext } from './App'
+import styled from "styled-components"
+
+const StyledWbnPlayer = styled.div `
+
+    background: ${ props => props.theme.bgcolor };
+    border: ${ props => props.theme.border };
+    max-width: 1800px;
+    margin: 30px auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    max-height: 863px;
+    transition: all 0.5s ease;
+
+    @media screen and (max-width: 1200px) {
+        display: block;
+        max-height: 10000px;
+    }
+`
 
 const theme = {
     bgcolor: "#353535",
@@ -45,6 +64,18 @@ const WbnPlayer = ({ match, history, location }) => {
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
     const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`))
+
+    const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext)
+	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(VideosContext)	
+	const { videoIdList, setVideoIdList } = useContext(VideosContext)
+	const { videosInformations, setVideosInformations } = useContext(VideosContext)
+	const { videosFinalList, setVideosFinalList } = useContext(VideosContext)
+
+
+
+
+
+
 
     const [state, setState] = useState({
         videos: savedState ? savedState.videos : videos.playlist,
@@ -163,11 +194,12 @@ const WbnPlayer = ({ match, history, location }) => {
 
     /* console.log('Koca: videos ', state.videos); */
 
-    setTimeout(() => {
-        /* console.log('Koca: setTimeout ', setTimeout); */
+    /* setTimeout(() => {
+        
 
         localStorage.clear();
-    }, 20000)
+    }, 20000) 
+    */
 
     return (
         <ThemeProvider theme= {state.nightMode ? theme : themeLight}>

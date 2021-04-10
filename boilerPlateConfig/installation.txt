@@ -1,0 +1,8 @@
+npm install eslint --save-dev
+./node_modules/.bin/eslint --init // configure it using AIRBNB
+npm install --save-dev --save-exact prettier
+npm install --save-dev eslint-config-prettier
+
+Copy the config files to the root folder
+
+// In old projects, to format all files run: npx prettier --write .
