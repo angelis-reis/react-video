@@ -1,6 +1,7 @@
 import React, { useState, createContext } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import VideoList from './VideoList';
 import WbnPlayer from './WbnPlayer';
 
 const GlobalStyle = createGlobalStyle`
@@ -59,6 +60,7 @@ const App = () => {
 					</Switch>
 					<GlobalStyle />{' '}
 					{/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
+					<VideoList />
 				</>
 			</BrowserRouter>
 		</VideosContext.Provider>

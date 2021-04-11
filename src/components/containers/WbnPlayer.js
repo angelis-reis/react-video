@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Video from '../Video';
 import Playlist from './Playlist';
-import VideoList from './VideoList';
 import { VideosContext } from './App';
 
 const StyledWbnPlayer = styled.div`
@@ -57,7 +56,7 @@ const themeLight = {
     ​​
     video: "https://www.youtube.com/embed/Cn1wH2bK3e8" */
 
-const WbnPlayer = ({ match, history, location }) => {
+function WbnPlayer({ match, history, location }) {
 
 
 	const videos = JSON.parse(document.querySelector('[name="videos"]').value);
@@ -84,14 +83,11 @@ const WbnPlayer = ({ match, history, location }) => {
 		playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
 		autoplay: false
 
-
 		// videos: savedState ? savedState.videos : videos.playlist,
 		// activeVideo: savedState ? savedState.activeVideo : videos.playlist[0],
 		// nightMode: savedState ? savedState.nightMode : true,
 		// playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
 		// autoplay: false
-
-
 	});
 
 
@@ -207,7 +203,7 @@ const WbnPlayer = ({ match, history, location }) => {
 						nightModeCallback={nightModeCallback}
 						nightMode={state.nightMode}
 					/>
-					<VideoList />
+
 				</StyledWbnPlayer>
 			) : null}
 		</ThemeProvider>
