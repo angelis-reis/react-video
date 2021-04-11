@@ -59,40 +59,46 @@ const themeLight = {
 
 const WbnPlayer = ({ match, history, location }) => {
 
+
 	const videos = JSON.parse(document.querySelector('[name="videos"]').value);
 	const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
 
+	const {
+		youtubePlaylist,
+		setYoutubePlaylist,
+		youtubePlaylistTitle,
+		setYoutubePlaylistTitlevideoIdList,
+		setVideoIdList,
+		videosInformations,
+		setVideosInformations,
+		videosFinalList
+	} = useContext(VideosContext);
 
-
-	const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext);
-	const { videoIdList, setVideoIdList } = useContext(VideosContext);
-	const { videosInformations, setVideosInformations } = useContext(
-		VideosContext
-	);
-	const { videosFinalList, setVideosFinalList } = useContext(VideosContext);
+	var timestamp5 = new Date().getTime();
+	console.log('Koca: state.video ', timestamp5);
 
 	const [state, setState] = useState({
 		videos: savedState ? savedState.videos : videos.playlist,
 		activeVideo: savedState ? savedState.activeVideo : videos.playlist[0],
 		nightMode: savedState ? savedState.nightMode : true,
-		playlistId: savedState ? savedState.playlistId : videos.playlistId,
+		playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
 		autoplay: false
+
+
+		// videos: savedState ? savedState.videos : videos.playlist,
+		// activeVideo: savedState ? savedState.activeVideo : videos.playlist[0],
+		// nightMode: savedState ? savedState.nightMode : true,
+		// playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
+		// autoplay: false
+
+
 	});
 
-	// console.log('Koca:videos.playlist ', videos.playlist);
 
-	/* const { videosInformations } = useContext(VideosContext)
-
-
-    const [state, setState] = useState({
-        videos: savedState ? savedState.videos : videosInformations,
-        activeVideo: savedState ? savedState.activeVideo :  videosInformations[0],
-        nightMode: savedState ? savedState.nightMode :  true,
-        playlistId: savedState ? savedState.playlistId :  videos.playlistId,
-        autoplay: false,
-    }) */
 
 	useEffect(() => {
+		// console.log('Koca: useeffect 1');
+		// console.log('Koca: activeVideo ', state.activeVideo);
 		localStorage.setItem(
 			`${state.playlistId}`,
 			JSON.stringify({
@@ -102,6 +108,8 @@ const WbnPlayer = ({ match, history, location }) => {
 	}, [state]);
 
 	useEffect(() => {
+		// console.log('Koca: useeffect 2');
+		// console.log('Koca: activeVideo ', state.activeVideo);
 		const videoId = match.params.activeVideo;
 		if (videoId !== undefined) {
 			const newActiveVideo = state.videos.findIndex(
@@ -146,9 +154,7 @@ const WbnPlayer = ({ match, history, location }) => {
 	};
 
 	/* opções de callback de progresso */
-
 	/* const progressCallback = e => {
-
         if(e.playedSeconds > 10 && e.playedSeconds < 11) {
             console.log("progressCallback")
             setState({
@@ -160,7 +166,6 @@ const WbnPlayer = ({ match, history, location }) => {
                 } )
             })
         }
-
     } */
 
 	const progressCallback = (e) => {
@@ -184,17 +189,7 @@ const WbnPlayer = ({ match, history, location }) => {
 		}));
 	};
 
-	/* console.log('Koca: videos ', state.videos); */
-
-	/* setTimeout(() => {
-
-
-        localStorage.clear();
-    }, 20000)
-    */
-
-	// console.log('Koca: videosFinalList ', videosFinalList);
-
+	// console.log('Koca: videosFinalList ', videosFinalList[0]);
 
 	return (
 		<ThemeProvider theme={state.nightMode ? theme : themeLight}>
@@ -207,7 +202,6 @@ const WbnPlayer = ({ match, history, location }) => {
 						progressCallback={progressCallback}
 					/>
 					<Playlist
-
 						videos={state.videos}
 						active={state.activeVideo}
 						nightModeCallback={nightModeCallback}

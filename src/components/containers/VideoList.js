@@ -94,6 +94,8 @@ const VideoList = () => {
 	useEffect(() => {
 		/* buscando a playlist de vídeos */
 
+
+
 		async function fetchPlaylist() {
 			try {
 				const requestPlayList = await axios.get(
@@ -135,6 +137,7 @@ const VideoList = () => {
 			videoList.push(video);
 		});
 		setVideoIdList(videoList);
+
 	}, [youtubePlaylist]);
 	/* console.log('Koca:videoIdList ', videoIdList); */
 
@@ -163,40 +166,15 @@ const VideoList = () => {
 		});
 	}, [videoIdList]);
 
-	useEffect(() => {
-		setTimeout(() => {
-			const videosFinalList = [];
-
-			videosInformations.map((vid, index) => {
-				const url = youtubeUrlMaker(vid.id);
-				const duration = convertDuration(vid.contentDetails.duration);
-
-				const video = `&quot;num&quot;:${index},&quot;title&quot;:&quot;${vid.snippet.localized.title}&quot;,&quot;id&quot;:&quot;${vid.id}&quot;,&quot;duration&quot;:&quot;${duration}&quot;,&quot;video&quot;:&quot;${url};`;
-
-				console.log('Koca: duration ', duration);
-
-				videosFinalList.push(video);
-
-				setVideosFinalList(videosFinalList);
-			});
-		}, 500);
-	}, [videosInformations]);
-
 	// useEffect(() => {
 	// 	setTimeout(() => {
 	// 		const videosFinalList = [];
 
 	// 		videosInformations.map((vid, index) => {
 	// 			const url = youtubeUrlMaker(vid.id);
+	// 			const duration = convertDuration(vid.contentDetails.duration);
 
-	// 			const video =
-	// 				{ index },
-	// 				{ vid.snippet.localized.title }
-	// 				{ vid.id }
-	// 				{ vid.contentDetails.duration }
-	// 				{ url };`;
-
-	// 			/* console.log('Koca: video ', video); */
+	// 			const video = `&quot;num&quot;:${index},&quot;title&quot;:&quot;${vid.snippet.localized.title}&quot;,&quot;id&quot;:&quot;${vid.id}&quot;,&quot;duration&quot;:&quot;${duration}&quot;,&quot;video&quot;:&quot;${url};`;
 
 	// 			videosFinalList.push(video);
 
@@ -205,7 +183,34 @@ const VideoList = () => {
 	// 	}, 500);
 	// }, [videosInformations]);
 
-	// console.log('Koca: VideosInformations ', videosInformations);
+	useEffect(() => {
+		// setTimeout(() => {
+		const videosFinalList = [];
+		const video = [];
+
+		videosInformations.map((vid, index) => {
+			const url = youtubeUrlMaker(vid.id);
+			const durations = convertDuration(vid.contentDetails.duration);
+
+			video.push({
+				duration: durations,
+				id: vid.id,
+				num: index,
+				played: false,
+				title: vid.snippet.localized.title,
+				video: url
+			});
+		});
+
+		var timestamp4 = new Date().getTime();
+		console.log('Koca: timestamp videosFinalList ', timestamp4);
+
+		setVideosFinalList(video);
+
+		// }, 800);
+	}, [videosInformations]);
+
+	// console.log('Koca: videosFinalList ', videosFinalList);
 
 	return null;
 };
