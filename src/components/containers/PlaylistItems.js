@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import PlaylistItem from '../PlaylistItem';
 import withLink from '../hoc/withLink';
-import styled from 'styled-components';
 
 const StyledPlaylistItems = styled.div`
 	padding: 0 20px;

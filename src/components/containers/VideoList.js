@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { VideosContext } from './App';
 import ApiKey from '../../sensitive/ApiKey';
@@ -9,6 +9,75 @@ function youtubeUrlMaker(videoId) {
 	const embed = 'https://www.youtube.com/embed/';
 	const youtubeUrl = embed.concat(videoId);
 	return youtubeUrl;
+}
+
+function convertDuration(t) {
+	// dividing period from time
+	const x = t.split('T');
+	let duration = '';
+	let time = {};
+	let period = {};
+	// just shortcuts
+	const s = 'string';
+	const v = 'variables';
+	const l = 'letters';
+	// store the information about ISO8601 duration format and the divided strings
+	const d = {
+		period: {
+			string: x[0].substring(1, x[0].length),
+			len: 4,
+			// years, months, weeks, days
+			letters: ['Y', 'M', 'W', 'D'],
+			variables: {}
+		},
+		time: {
+			string: x[1],
+			len: 3,
+			// hours, minutes, seconds
+			letters: ['H', 'M', 'S'],
+			variables: {}
+		}
+	};
+	// in case the duration is a multiple of one day
+	if (!d.time.string) {
+		d.time.string = '';
+	}
+
+	for (const i in d) {
+		const { len } = d[i];
+		for (let j = 0; j < len; j++) {
+			d[i][s] = d[i][s].split(d[i][l][j]);
+			if (d[i][s].length > 1) {
+				d[i][v][d[i][l][j]] = parseInt(d[i][s][0], 10);
+				d[i][s] = d[i][s][1];
+			} else {
+				d[i][v][d[i][l][j]] = 0;
+				d[i][s] = d[i][s][0];
+			}
+		}
+	}
+	period = d.period.variables;
+	time = d.time.variables;
+	time.H +=
+		24 * period.D +
+		24 * 7 * period.W +
+		24 * 7 * 4 * period.M +
+		24 * 7 * 4 * 12 * period.Y;
+
+	if (time.H) {
+		duration = `${time.H}:`;
+		if (time.M < 10) {
+			time.M = `0${time.M}`;
+		}
+	}
+
+	if (time.S < 10) {
+		time.S = `0${time.S}`;
+	}
+
+	duration += `${time.M}:${time.S}`;
+
+	return duration;
 }
 
 const VideoList = () => {
@@ -24,6 +93,8 @@ const VideoList = () => {
 
 	useEffect(() => {
 		/* buscando a playlist de vídeos */
+
+
 
 		async function fetchPlaylist() {
 			try {
@@ -59,13 +130,14 @@ const VideoList = () => {
 	useEffect(() => {
 		/* criando um array com os videosId da playlist de vídeos */
 		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-		var video;
-		var videoList = [];
+		let video;
+		const videoList = [];
 		youtubePlaylist.map((vid) => {
 			video = vid.contentDetails.videoId;
 			videoList.push(video);
 		});
 		setVideoIdList(videoList);
+
 	}, [youtubePlaylist]);
 	/* console.log('Koca:videoIdList ', videoIdList); */
 
@@ -73,7 +145,7 @@ const VideoList = () => {
 		/* buscando informações de cada vídeo da lista */
 		/* console.log("youtubePlaylist: ", youtubePlaylist) */
 
-		var videoInfoList = [];
+		const videoInfoList = [];
 
 		videoIdList.map((vidInfo) => {
 			async function fetchVideosInfo() {
@@ -94,26 +166,51 @@ const VideoList = () => {
 		});
 	}, [videoIdList]);
 
+	// useEffect(() => {
+	// 	setTimeout(() => {
+	// 		const videosFinalList = [];
+
+	// 		videosInformations.map((vid, index) => {
+	// 			const url = youtubeUrlMaker(vid.id);
+	// 			const duration = convertDuration(vid.contentDetails.duration);
+
+	// 			const video = `&quot;num&quot;:${index},&quot;title&quot;:&quot;${vid.snippet.localized.title}&quot;,&quot;id&quot;:&quot;${vid.id}&quot;,&quot;duration&quot;:&quot;${duration}&quot;,&quot;video&quot;:&quot;${url};`;
+
+	// 			videosFinalList.push(video);
+
+	// 			setVideosFinalList(videosFinalList);
+	// 		});
+	// 	}, 500);
+	// }, [videosInformations]);
+
 	useEffect(() => {
-		setTimeout(() => {
-			const videosFinalList = [];
+		// setTimeout(() => {
+		const videosFinalList = [];
+		const video = [];
 
-			videosInformations.map((vid, index) => {
-				const url = youtubeUrlMaker(vid.id);
-				const video = `&quot;num&quot;:${index},&quot;title&quot;:&quot;${vid.snippet.localized.title}&quot;,&quot;id&quot;:&quot;${vid.id}&quot;,&quot;duration&quot;:&quot;{ vid.contentDetails.duration }&quot;,&quot;video&quot;:&quot;${url};`;
+		videosInformations.map((vid, index) => {
+			const url = youtubeUrlMaker(vid.id);
+			const durations = convertDuration(vid.contentDetails.duration);
 
-				/* console.log('Koca: video ', video); */
-
-				videosFinalList.push(video);
-
-				setVideosFinalList(videosFinalList);
+			video.push({
+				duration: durations,
+				id: vid.id,
+				num: index,
+				played: false,
+				title: vid.snippet.localized.title,
+				video: url
 			});
-		}, 500);
+		});
+
+		var timestamp4 = new Date().getTime();
+		console.log('Koca: timestamp videosFinalList ', timestamp4);
+
+		setVideosFinalList(video);
+
+		// }, 800);
 	}, [videosInformations]);
 
-	/* console.log('Koca: videosFinalList ', videosFinalList); */
-
-	console.log('Koca: YoutubePlaylistTitle ', youtubePlaylistTitle);
+	// console.log('Koca: videosFinalList ', videosFinalList);
 
 	return null;
 };

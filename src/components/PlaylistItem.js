@@ -71,31 +71,26 @@ const StyledPlaylistItem = styled.div`
   }
   .wbn-player__video-download a {
     color: ${props =>
-      props.played && !props.active ? "#fff" : props.theme.color};
+		props.played && !props.active ? "#fff" : props.theme.color};
   }
   .active {
     opacity: 0.1;
   }
 `;
 
+const PlaylistItem = ({ video, active, played }) => (
 
-const PlaylistItem = ({ video, active, played }) => {
-
-    return (
-
-        <StyledPlaylistItem active={ active } played={ played }>
-            <div className="wbn-player__video-nr">
-                {video.num}
-            </div>
-            <div className="wbn-player__video-name">
-                {video.title}
-            </div>
-            <div className="wbn-player__video-time">
-                {video.duration}
-            </div>
-            
-        </StyledPlaylistItem>
-    )
-}
+	<StyledPlaylistItem active={ active } played={ played }>
+		<div className="wbn-player__video-nr">
+			{video.num}
+		</div>
+		<div className="wbn-player__video-name">
+			{video.title}
+		</div>
+		<div className="wbn-player__video-time">
+			{video.duration}
+		</div>
+	</StyledPlaylistItem>
+)
 
 export default PlaylistItem

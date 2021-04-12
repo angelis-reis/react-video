@@ -1,8 +1,11 @@
-import React from 'react';
-import PlaylistHeader from '../PlaylistHeader';
-import PlaylistItems from '../containers/PlaylistItems';
-import NightMode from '../NightMode';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import PlaylistHeader from '../PlaylistHeader';
+import PlaylistTitleHeader from '../PlaylistTitleHeader';
+import { VideosContext } from './App';
+
+import PlaylistItems from './PlaylistItems';
+import NightMode from '../NightMode';
 
 const StyledPlaylist = styled.div`
 	-webkit-box-flex: 1;
@@ -17,7 +20,13 @@ const StyledPlaylist = styled.div`
 	}
 `;
 
+
 const Playlist = ({ videos, active, nightModeCallback, nightMode }) => {
+
+	const { youtubePlaylistTitle } = useContext(
+		VideosContext
+	);
+
 	return (
 		<StyledPlaylist>
 			{' '}
@@ -26,6 +35,7 @@ const Playlist = ({ videos, active, nightModeCallback, nightMode }) => {
 				nightModeCallback={nightModeCallback}
 				nightMode={nightMode}
 			/>
+			<PlaylistTitleHeader playlistTitle={ youtubePlaylistTitle } />
 			<PlaylistHeader active={active} total={videos.length} />
 			<PlaylistItems videos={videos} active={active} />
 		</StyledPlaylist>
