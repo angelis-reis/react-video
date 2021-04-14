@@ -1,7 +1,20 @@
-import { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import { createGlobalStyle } from 'styled-components';
+import WbnPlayer from './WbnPlayer';
 import { VideosContext } from './App';
 import ApiKey from '../../sensitive/ApiKey';
+
+const GlobalStyle = createGlobalStyle`
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        font-size: 10px;
+        font-family: 'Hind', sans-serif;
+    }
+`;
 
 const playlistId = 'PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz';
 
@@ -80,7 +93,16 @@ function convertDuration(t) {
 	return duration;
 }
 
+function timeStamp(label) {
+	const timestamp = new Date().getTime();
+	console.log(`TimeStamp ${label}`, timestamp);
+}
+
 const VideoList = () => {
+	let videoL = [];
+	const video = [];
+	const videoList = [];
+
 	const { youtubePlaylist, setYoutubePlaylist } = useContext(VideosContext);
 	const { youtubePlaylistTitle, setYoutubePlaylistTitle } = useContext(
 		VideosContext
@@ -91,17 +113,16 @@ const VideoList = () => {
 	);
 	const { videosFinalList, setVideosFinalList } = useContext(VideosContext);
 
+	const [showPlayer, setShowPlayer] = useState(false);
+
 	useEffect(() => {
-		/* buscando a playlist de vídeos */
-
-
+		// buscando a playlist de vídeos
 
 		async function fetchPlaylist() {
 			try {
 				const requestPlayList = await axios.get(
 					`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2C%20contentDetails&maxResults=50&playlistId=${playlistId}&key=${ApiKey}`
 				);
-
 				/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
 				setYoutubePlaylist(requestPlayList.data.items);
 			} catch (err) {
@@ -109,14 +130,13 @@ const VideoList = () => {
 			}
 		}
 		fetchPlaylist();
+		// timeStamp('playlist');
 
 		async function fetchPlaylistTitle() {
 			try {
 				const requestPlayListTitle = await axios.get(
 					`https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${ApiKey}`
 				);
-
-				/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
 				setYoutubePlaylistTitle(
 					requestPlayListTitle.data.items[0].snippet.localized.title
 				);
@@ -125,26 +145,22 @@ const VideoList = () => {
 			}
 		}
 		fetchPlaylistTitle();
+		// timeStamp('title');
 	}, []);
 
 	useEffect(() => {
-		/* criando um array com os videosId da playlist de vídeos */
-		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-		let video;
-		const videoList = [];
-		youtubePlaylist.map((vid) => {
-			video = vid.contentDetails.videoId;
-			videoList.push(video);
-		});
-		setVideoIdList(videoList);
+		// criando um array com os videosId da playlist de vídeos
 
+		youtubePlaylist.map((vid) => {
+			videoL = vid.contentDetails.videoId;
+			videoList.push(videoL);
+		});
+
+		setVideoIdList(videoList);
 	}, [youtubePlaylist]);
-	/* console.log('Koca:videoIdList ', videoIdList); */
 
 	useEffect(() => {
 		/* buscando informações de cada vídeo da lista */
-		/* console.log("youtubePlaylist: ", youtubePlaylist) */
-
 		const videoInfoList = [];
 
 		videoIdList.map((vidInfo) => {
@@ -153,8 +169,6 @@ const VideoList = () => {
 					const requestVideoInfos = await axios.get(
 						`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20contentDetails%2C%20player&id=${vidInfo}&key=${ApiKey}`
 					);
-					/* setYoutubePlaylist(request.data.items.contentDetails.videoId) */
-					/* console.log('Koca: requestVideoInfos ', requestVideoInfos.data.items[0]); */
 
 					videoInfoList.push(requestVideoInfos.data.items[0]);
 				} catch (err) {
@@ -162,32 +176,25 @@ const VideoList = () => {
 				}
 			}
 			fetchVideosInfo();
-			setVideosInformations(videoInfoList);
 		});
+
+		setVideosInformations(videoInfoList);
 	}, [videoIdList]);
 
 	// useEffect(() => {
 	// 	setTimeout(() => {
 	// 		const videosFinalList = [];
-
 	// 		videosInformations.map((vid, index) => {
 	// 			const url = youtubeUrlMaker(vid.id);
 	// 			const duration = convertDuration(vid.contentDetails.duration);
-
 	// 			const video = `&quot;num&quot;:${index},&quot;title&quot;:&quot;${vid.snippet.localized.title}&quot;,&quot;id&quot;:&quot;${vid.id}&quot;,&quot;duration&quot;:&quot;${duration}&quot;,&quot;video&quot;:&quot;${url};`;
-
 	// 			videosFinalList.push(video);
-
 	// 			setVideosFinalList(videosFinalList);
 	// 		});
 	// 	}, 500);
 	// }, [videosInformations]);
 
 	useEffect(() => {
-		// setTimeout(() => {
-		const videosFinalList = [];
-		const video = [];
-
 		videosInformations.map((vid, index) => {
 			const url = youtubeUrlMaker(vid.id);
 			const durations = convertDuration(vid.contentDetails.duration);
@@ -201,18 +208,36 @@ const VideoList = () => {
 				video: url
 			});
 		});
-
-		var timestamp4 = new Date().getTime();
-		console.log('Koca: timestamp videosFinalList ', timestamp4);
-
-		setVideosFinalList(video);
-
-		// }, 800);
+		setVideosFinalList(video);// verificar se aqui está funcionando
 	}, [videosInformations]);
 
-	// console.log('Koca: videosFinalList ', videosFinalList);
+	useEffect(() => {
+		console.log('Koca: videosFinalList ', videosFinalList);
+		setShowPlayer(true);
+	}, [videosFinalList]);
 
-	return null;
+	return (
+		<>
+			{showPlayer ? (
+				<BrowserRouter basename='/react-videoplayer'>
+					{' '}
+					{/* usar o basename se o player for
+							ficar em uma subpasta na  minha aplicação    */}
+					<Switch>
+						<Route exact path='/' component={WbnPlayer} />
+						<Route
+							exact
+							path='/:activeVideo'
+							component={WbnPlayer}
+						/>
+					</Switch>
+					<GlobalStyle />{' '}
+				</BrowserRouter>
+			) : (
+				<h1>Carregando...</h1>
+			)}
+		</>
+	);
 };
 
 export default VideoList;

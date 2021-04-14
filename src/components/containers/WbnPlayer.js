@@ -44,20 +44,15 @@ const themeLight = {
 
 /* 0: {…}
 ​​
-    duration: "10:51"
-    ​​
-    id: "ghI-gMi1DPc"
-    ​​
-    num: 1
-    ​​
-    played: true
-    ​​
-    title: "Introduction and setup"
-    ​​
+    duration: "10:51"    ​​
+    id: "ghI-gMi1DPc"    ​​
+    num: 1    ​​
+    played: true    ​​
+    title: "Introduction and setup"    ​​
     video: "https://www.youtube.com/embed/Cn1wH2bK3e8" */
 
+// function WbnPlayer({ match, history, location }) {
 function WbnPlayer({ match, history, location }) {
-
 
 	const videos = JSON.parse(document.querySelector('[name="videos"]').value);
 	const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
@@ -73,8 +68,35 @@ function WbnPlayer({ match, history, location }) {
 		videosFinalList
 	} = useContext(VideosContext);
 
-	var timestamp5 = new Date().getTime();
-	console.log('Koca: state.video ', timestamp5);
+	// console.log('Koca: videosFinalList ', videosFinalList);
+
+	// const timestamp = new Date().getTime();
+	// console.log('Koca: videosFinalList TimeStamp ', timestamp);
+	// 	console.log('Koca: videosFinalList ', videosFinalList);
+
+	/* setTimeout(() => {
+
+		console.log('Koca: setTimeOut ', );
+
+		const [state, setState] = useState({
+			videos: savedState ? savedState.videos : videos.playlist,
+			activeVideo: savedState
+				? savedState.activeVideo
+				: videos.playlist[0],
+			nightMode: savedState ? savedState.nightMode : true,
+			playlistId: savedState
+				? savedState.playlistId
+				: youtubePlaylistTitle,
+			autoplay: false
+
+			// videos: savedState ? savedState.videos : videosFinalList,
+			// activeVideo: savedState ? savedState.activeVideo : videosFinalList[0],
+			// nightMode: savedState ? savedState.nightMode : true,
+			// playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
+			// autoplay: false
+		});
+
+	}, 1000); */
 
 	const [state, setState] = useState({
 		videos: savedState ? savedState.videos : videos.playlist,
@@ -83,8 +105,8 @@ function WbnPlayer({ match, history, location }) {
 		playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
 		autoplay: false
 
-		// videos: savedState ? savedState.videos : videos.playlist,
-		// activeVideo: savedState ? savedState.activeVideo : videos.playlist[0],
+		// videos: savedState ? savedState.videos : videosFinalList,
+		// activeVideo: savedState ? savedState.activeVideo : videosFinalList[0],
 		// nightMode: savedState ? savedState.nightMode : true,
 		// playlistId: savedState ? savedState.playlistId : youtubePlaylistTitle,
 		// autoplay: false
@@ -92,7 +114,7 @@ function WbnPlayer({ match, history, location }) {
 
 
 
-	useEffect(() => {
+	useEffect(() => { // não vai rodar
 		// console.log('Koca: useeffect 1');
 		// console.log('Koca: activeVideo ', state.activeVideo);
 		localStorage.setItem(
@@ -184,9 +206,7 @@ function WbnPlayer({ match, history, location }) {
 			nightMode: !prevState.nightMode
 		}));
 	};
-
 	// console.log('Koca: videosFinalList ', videosFinalList[0]);
-
 	return (
 		<ThemeProvider theme={state.nightMode ? theme : themeLight}>
 			{state.videos !== null ? (
@@ -203,11 +223,10 @@ function WbnPlayer({ match, history, location }) {
 						nightModeCallback={nightModeCallback}
 						nightMode={state.nightMode}
 					/>
-
 				</StyledWbnPlayer>
 			) : null}
 		</ThemeProvider>
 	);
-};
+}
 
 export default WbnPlayer;

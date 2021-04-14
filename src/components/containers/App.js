@@ -5,20 +5,15 @@ import VideoList from './VideoList';
 import WbnPlayer from './WbnPlayer';
 
 const GlobalStyle = createGlobalStyle`
-
     * {
         box-sizing: border-box;
-
     }
-
     body {
         font-size: 10px;
         font-family: 'Hind', sans-serif;
     }
 `;
-
 // const playlistId = 'PLXA_TifFgaBAu0l39GWyJVVr0azXpV9wz';
-
 export const VideosContext = createContext();
 
 const App = () => {
@@ -27,7 +22,6 @@ const App = () => {
 	const [videosInformations, setVideosInformations] = useState([]);
 	const [youtubePlaylistTitle, setYoutubePlaylistTitle] = useState([]);
 	const [videosFinalList, setVideosFinalList] = useState([]);
-
 	/* console.log('Koca: videosInformations ', videosInformations); */
 
 	return (
@@ -45,24 +39,7 @@ const App = () => {
 				setVideosFinalList
 			}}
 		>
-			<BrowserRouter basename='/react-videoplayer'>
-				{' '}
-				{/* usar o basename se o player for
-			ficar em uma subpasta na  minha aplicação    */}
-				<>
-					<Switch>
-						<Route exact path='/' component={WbnPlayer} />
-						<Route
-							exact
-							path='/:activeVideo'
-							component={WbnPlayer}
-						/>
-					</Switch>
-					<GlobalStyle />{' '}
-					{/* ao chamar um componente globalStyle dentor do BrowserRouter eu aplico o stylo global em toda a aplicação  */}
-					<VideoList />
-				</>
-			</BrowserRouter>
+			<VideoList />
 		</VideosContext.Provider>
 	);
 };
